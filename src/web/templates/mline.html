@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#B4E6FB"> 
+		<title>行情</title>
+		<link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	</head>
+
+
+<style type="text/css">   
+	body{margin: 0;padding: 0;} 
+	.Kline-div{
+		position: fixed;width: 100%;
+		bottom: 0rem;top: 0; 
+	}
+	.Kline-div .m-line{height: 70%;width: 100%;margin-bottom: 1%;}
+	#neon-btn {
+		  display: flex;
+		  align-items: center;
+		  justify-content: space-around;
+		  height: 15%;
+		  background: #031628;
+		}
+
+		.btn {
+		  border: 1px solid;
+		  background-color: transparent;
+		  text-transform: uppercase;
+		  font-size: 14px;
+		  padding: 10px 20px;
+		  font-weight: 300;
+		}
+
+		.one {
+		  color: #4cc9f0;
+		}
+
+		.two {
+		  color: #f038ff;
+		}
+
+		.three {
+		  color: #b9e769;
+		}
+
+		.btn:hover {
+		  color: white;
+		  border: 0;
+		}
+
+		.one:hover {
+		  background-color: #4cc9f0;
+		  -webkit-box-shadow: 10px 10px 99px 6px rgba(76,201,240,1);
+		  -moz-box-shadow: 10px 10px 99px 6px rgba(76,201,240,1);
+		  box-shadow: 10px 10px 99px 6px rgba(76,201,240,1);
+		}
+
+		.two:hover {
+		  background-color: #f038ff;
+		  -webkit-box-shadow: 10px 10px 99px 6px rgba(240, 56, 255, 1);
+		  -moz-box-shadow: 10px 10px 99px 6px rgba(240, 56, 255, 1);
+		  box-shadow: 10px 10px 99px 6px rgba(240, 56, 255, 1);
+		}
+
+		.three:hover {
+		  background-color: #b9e769;
+		  -webkit-box-shadow: 10px 10px 99px 6px rgba(185, 231, 105, 1);
+		  -moz-box-shadow: 10px 10px 99px 6px rgba(185, 231, 105, 1);
+		  box-shadow: 10px 10px 99px 6px rgba(185, 231, 105, 1);
+		}
+
+
+
+		.user-input {
+            width: 400px;
+            height: 40px;
+            border: 2px solid blue;
+            border-radius: 5px;
+            box-sizing: border-box;
+            outline: none;
+            text-indent: 10px;
+        }
+
+        .user-btn {
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            background: blue;
+            vertical-align: middle;
+            outline: none;
+            color: white;
+            font-size: 20px;
+        }
+
+</style>  
+	<body>
+
+		<div id="Kline-div" class="Kline-div">
+<!--				<form id="form" name="form" method='POST' action='/query_mline/' style="text-alige:left">-->
+<!--					<h1>请输入需要查询股票代码:-->
+<!--					<input type="text" name="name" style="height:30px;width:160px;font-size:30px;">-->
+<!--					<input type="submit" value="点击查询" >-->
+<!--					</h1>-->
+<!--				</form>-->
+
+<!--				<form id="form" name="form" method='POST' action='/query_mline/' style="text-align:center">-->
+				<form id="form" name="form" style="text-align:center">
+					<h1>
+						<input class="user-input" type="text" name="code" placeholder="输入股票代码，如600519" style="height:40px;width:300px;font-size:20px;">
+						<input class="user-btn" type="submit" onclick="getData()" value="点击查询">
+<!--						<button class="user-btn" type="button" onclick="getData()">点击查询</button>-->
+						<span id="user_name"  class="btn three" style="float:right;margin:10px;">用户名</span>
+					</h1>
+				</form>
+
+
+				<div id="neon-btn">
+					<button  class="btn three" id="name">未识别股票</button>
+					<button class="btn one" onclick="window.location.href='/kcontent'">K线图</button>
+					<button  class="btn two" onclick="window.location.href='/rank'">排行榜</button>
+				</div>
+
+				<div id="m-line" class="m-line"></div>
+		</div> 
+<!--		<script src="js/jquery-3.3.1.min.js"></script>-->
+<!--		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>-->
+<!--		<script src="js/tmpData.js" type="text/javascript" charset="utf-8"></script>-->
+<!--		<script src="js/k-line.js" type="text/javascript" charset="utf-8"></script>-->
+
+
+		<script src="{{ url_for('static',filename='jquery-3.3.1.min.js') }}"></script>
+		<script src="{{ url_for('static',filename='echarts.min.js') }}" type="text/javascript" charset="utf-8"></script>
+		<script src="{{ url_for('static',filename='tmpData.js') }}" type="text/javascript" charset="utf-8"></script>
+		<script src="{{ url_for('static',filename='k-line.js') }}" type="text/javascript" charset="utf-8"></script>
+
+		<script>   
+				var mChart = echarts.init(document.getElementById('m-line'));
+				// mChart.setOption(initMOption(mdata,'us'));
+
+    			getData();
+
+    			function getCookie(c_name) {
+					if (document.cookie.length > 0) {
+						c_start = document.cookie.indexOf(c_name + "=");
+						if (c_start != -1) {
+							c_start = c_start + c_name.length + 1;
+							c_end = document.cookie.indexOf(";", c_start);
+							if (c_end == -1) c_end = document.cookie.length;
+							return unescape(document.cookie.substring(c_start, c_end));
+						}
+					}
+					return "";
+				}
+
+				//我用了一个getData（）来通过ajax实现获取实时数据；
+				function getData(){
+					//var f = document.form;
+					//var code  = f.code.value;
+
+					var code = '600519';
+					if (window.location.search === "") {
+
+					} else {
+						code = window.location.search.split('=')[1];
+					}
+
+					var data = "code=" + code;
+
+					$.ajax({
+						type:'GET',
+						url:"/min_data?" + data,
+						dataType:'json',
+						success:function(data){
+							  // console.log(data);
+							  //html原本的js代码
+							if (data['data'] === "该股票不存在") {
+								alert("该股票不存在，请输入正确的股票代码！")
+							}
+							mChart.setOption(initMOption(data['data'],'hs'));
+							document.getElementById("name").innerText=data['name'];
+							if (getCookie('name') === "") {
+								alert("用户未登录，请登录！")
+								window.location.href = "/index";
+							}
+							document.getElementById("user_name").innerText=getCookie('name');
+							//alert(getCookie('name'));
+						}
+					});
+				}
+				//然后实现60秒定时刷新
+				window.setInterval(function(){
+					getData()
+				},60000);
+
+
+		</script>
+	</body>
+</html>

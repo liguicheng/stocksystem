@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register and login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+<link rel="stylesheet" href="../static/style1.css">
+</head>
+<body>
+<div class="container right-panel-active">
+    <!-- 注册 -->
+<!--    <div class="container_form container&#45;&#45;signup">-->
+<!--        <form action="../cgi-bin/register.py" class="form" id="form1" method="post" target="id_iframe">-->
+<!--            <h2 class="form_title">注册</h2>-->
+<!--            <input type="text" name="name" placeholder="用户名" class="input" />-->
+<!--            <input type="email" name="email" placeholder="邮箱" class="input" />-->
+<!--            <input type="password" name="password" placeholder="密码" class="input" />-->
+<!--            <button class="btn" type="submit">注册</button>-->
+<!--        </form>-->
+<!--        <iframe id="id_iframe" name="id_iframe" style=""></iframe>-->
+<!--    </div>-->
+
+    <div class="container_form container--signup">
+<!--        target="id_iframe" -->
+        <form class="form" name="form1">
+            <h2 class="form_title">注册</h2>
+            <input type="text" name="name" placeholder="用户名" class="input" />
+            <input type="email" name="email" placeholder="邮箱" class="input" />
+            <input type="password" name="password" placeholder="密码" class="input" />
+            <button class="btn" type="button" onclick="register()">注册</button>
+<!--            <input id="btn" class="btn" type="button" value="注册" onclick="register()"/>-->
+        </form>
+        <iframe id="id_iframe" name="id_iframe" style=""></iframe>
+    </div>
+
+    <!-- 登录 -->
+    <div class="container_form container--signin">
+        <form  class="form" name="form2">
+            <h2 class="form_title">登录</h2>
+            <input type="email" name="email" placeholder="邮箱" class="input" />
+            <input type="password" name="password" placeholder="密码" class="input" />
+<!--            <a href="#" class="link">忘记密码？</a>-->
+            <button class="btn" type="button" onclick="login()">登录</button>
+        </form>
+    </div>
+
+    <!-- 浮层 -->
+    <div class="container_overlay">
+        <div class="overlay">
+            <div class="overlay_panel overlay--left">
+                <button class="btn" id="signIn">登录</button>
+            </div>
+            <div class="overlay_panel overlay--right">
+                <button class="btn" id="signUp">注册</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 背景 -->
+<div class="slidershow">
+    <div class="slidershow--image" style="background-image: url('https://source.unsplash.com/Snqdjm71Y5s')"></div>
+    <div class="slidershow--image" style="background-image: url('https://source.unsplash.com/5APj-fzKE-k')"></div>
+    <div class="slidershow--image" style="background-image: url('https://source.unsplash.com/wnbBH_CGOYQ')"></div>
+    <div class="slidershow--image" style="background-image: url('https://source.unsplash.com/OkTfw7fXLPk')"></div>
+</div>
+
+    <script src="../static/js/jquery.min.js" charset="utf-8"></script>
+    <script src="../static/js/amazeui.min.js" charset="utf-8"></script>
+    <script src="../static/js/cropper.min.js" charset="utf-8"></script>
+    <script src="../static/script.js"></script>
+</body>
+</html>

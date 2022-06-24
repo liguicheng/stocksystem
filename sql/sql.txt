@@ -1,0 +1,10 @@
+create database stock_system;
+密码设置为：root
+my.ini设置：
+[mysqld]        #服务端配置
+local-infile = 1
+
+[mysql]         #客户端配置
+local-infile = 1
+
+主要耗时操作：保存数据库操作、根据股票代码获取名称、获取前一个交易日的股票收盘价。
