@@ -1,5 +1,5 @@
 # stocksystem
-股票信息可视化系统
+股票信息可视化系统（可以给个star吗，后续会优化）
 
 包含四个界面，注册登录、分钟线、日线、排行榜等，且包含股票搜索功能。图例如下：
 ![image](https://user-images.githubusercontent.com/30389941/175469916-8508c26f-6c0d-4c6e-8afa-411fe123e070.png)
